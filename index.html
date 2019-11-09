@@ -1,0 +1,244 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Числовая ось</title>
+	<style type="text/css">
+		html, body {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+		}
+		body {
+			background: #CDABC5;
+		}
+		#bg {
+			background-image: url(images/fon.png);
+			min-height: 100%;
+			width: 100%;
+		}
+		#top {
+			width: 100%;
+			height: 45px;
+		}
+		#wrapper {
+			width: 960px;
+			height: 560px;
+			background: white;
+			margin: 0 auto;
+			border-radius: 20px;
+			position: relative;
+			box-shadow: 0 0 2px 4px grey;
+		}
+		#header {
+			position: absolute;
+			top: 20px;
+			left: 285px;
+		}
+		span {
+			font: 28px Tahoma;
+		}
+		#hr {
+			position: absolute;
+			background: #E1E1E1;
+			width: 100%;
+			height: 1px;
+			top: 80px;
+		}
+		
+		#task {
+			position: absolute;
+			top: 120px;
+			left: 375px;
+		}
+		.tInp {
+			font: 28px Tahoma;
+			border: 1px solid white;
+			border-radius: 10px;
+			text-align: center;
+			width: 36px;
+			height: 40px;
+			padding: 0 0 5px 0;
+		}
+		#numbers {
+			position: absolute;
+			top: 310px;
+			left: 190px;
+		}
+		#num1 {
+			margin-right: 180px;
+		}
+		#num2 {
+			margin-top: 10px;
+		}
+		#arrows {
+			position: absolute;
+			top: 365px;
+			left: 72px;
+		}
+		#arr_small {
+			margin-top: 10px;
+		}
+		.left {
+			float: left;
+			margin-right: 2px;
+		}
+		#ruler {
+			position: absolute;
+			top: 420px;
+			left: 42px;
+		}
+		#message {
+			position: absolute;
+			display: none;
+			font: 18px Tahoma;
+			color: green;
+			top: 170px;
+			left: 260px;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function() {
+			// По умолчанию стрелки и инпуты для ввода текста скрыты:
+			var arr1 = document.getElementById('arr1');
+			var arr2 = document.getElementById('arr2');
+			
+			var num1 = document.getElementById('num1');
+			var num2 = document.getElementById('num2');
+			
+			arr1.style.display = "none";
+			arr2.style.display = "none";
+			
+			num1.style.display = "none";
+			num2.style.display = "none";
+			
+			// Только первая стрелка и первый инпут отобразились:
+			function showArrNum(val) {
+				var arrow = document.getElementById('arr' + val);
+				arrow.style.display = "block";
+				
+				var number = document.getElementById('num' + val);
+				number.style.display = "block";
+				number.style.border = "1px solid #A349A4";
+				number.style.borderRadius = "10px";
+			}
+			
+			showArrNum(1);
+		}		
+	</script>
+</head>
+<body>
+	<div id="bg">
+		<div id="top"></div>
+		<div id="wrapper">
+			<div id="header"><span>Сложение однозначных чисел</span></div>
+			<div id="hr"></div>
+			<div id="task">
+				<input class="tInp" type="text" id="pos1" value="7" maxlength="1" />
+				<input class="tInp" type="text" value="+"/>
+				<input class="tInp" type="text" id="pos2" value="4" maxlength="1" />
+				<input class="tInp" type="text" value="="/>
+				<input class="tInp" type="text" id="sum" value="?" maxlength="2" onkeypress="checkKey(event)"/>
+			</div>
+			<div id="message">
+				<p>После ввода результата нажмите на клавишу Enter!</p>
+			</div>
+			<div id="numbers">
+				<div class="left" id="num1"><input id="n1" class="tInp" type="text" maxlength="1" /></div>
+				<div class="left" id="num2"><input id="n2" class="tInp" type="text" maxlength="1" /></div>
+			</div>
+			<div id="arrows">
+				<div class="left" id="arr1"><img src="images/arr_big.png" alt="arr1"></div>
+				<div class="left" id="arr2"><img src="images/arr_small.png" alt="arr2"></div>
+			</div>
+			<div id="ruler"><img src="images/sprite.png" alt="ruler"></div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		function showArrNum(val) {
+				var arrow = document.getElementById('arr' + val);
+				arrow.style.display = "block";
+				arrow.style.marginTop = "10px";
+				
+				var number = document.getElementById('num' + val);
+				number.style.display = "block";
+				number.style.border = "1px solid #A349A4";
+				number.style.borderRadius = "10px";
+				number.style.marginTop = "10px";
+		}
+		
+		// Проверка введённого значения в первом поле:
+		function checkVal1(val) {
+			var number = document.getElementById('n' + val);
+			var pos = document.getElementById('pos' + val);
+			if ((number.value !== 7) || (number.value == '')) {
+				number.style.color = "red";
+				pos.style.color = "white";
+				pos.style.border = "1px solid red";
+				pos.style.backgroundColor = "red";
+			}
+			if (number.value == 7) {
+				number.style.color = "black";
+				number.parentNode.style.border = "1px solid white";
+				pos.style.color = "black";
+				pos.style.border = "1px solid white";
+				pos.style.backgroundColor = "white";
+				
+				showArrNum(2);
+			}
+		}
+		
+		// Проверка введённого значения во втором поле:
+		function checkVal2(val) {
+			var number = document.getElementById('n' + val);
+			var pos = document.getElementById('pos' + val);
+			var msg = document.getElementById('message');
+			if ((number.value !== 4) || (number.value == '')) {
+				number.style.color = "red";
+				pos.style.color = "white";
+				pos.style.border = "1px solid red";
+				pos.style.backgroundColor = "red";
+			}
+			if (number.value == 4) {
+				number.style.color = "black";
+				number.parentNode.style.border = "1px solid white";
+				pos.style.color = "black";
+				pos.style.border = "1px solid white";
+				pos.style.backgroundColor = "white";
+					
+				var sum = document.getElementById('sum');
+				sum.value = '';
+				sum.style.border = "2px solid red";
+				sum.style.width = "40px";
+				msg.style.display = "block";
+			}
+		}
+	
+		// Вызов функций проверки:
+		var number1 = document.getElementById('n1');
+		number1.onkeyup = function() {
+			checkVal1(1);
+		};
+		
+		var number2 = document.getElementById('n2');
+		number2.onkeyup = function() {
+			checkVal2(2);
+		};
+		
+		// Проверка введённого результата:
+		function checkKey(e) {
+			var sum = document.getElementById('sum');
+			if ((e.keyCode == '13') && (sum.value == 11)) {
+				sum.style.border = "2px solid white";
+				sum.style.color = "black";
+				alert("Правильный ответ!");
+			}
+			else if ((e.keyCode == '13') && (sum.value !== 11)) {
+				sum.style.border = "2px solid red";
+				sum.style.color = "red";
+				alert("Ошибка!");
+			}
+		}
+	</script>
+</body>
+</html>
